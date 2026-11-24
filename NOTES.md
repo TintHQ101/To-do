@@ -22,3 +22,10 @@
 - Smoke test now blocks Google's CDN so it runs offline. All checks pass.
 - Could not test real sign-in from the dev container (its network blocks gstatic.com). Must test on the iPhone.
 - Next: add `tinthq101.github.io` to Firebase authorized domains, then on "go live": merge to main, turn on GitHub Pages, test sign-in on iPhone + iPad.
+
+## 2026-11-24 (go live)
+- Firebase rules confirmed published (7:02 AM). tinthq101.github.io added to authorized domains.
+- Owner said "go live". Repo was private; owner chose to make it public for free GitHub Pages.
+- Merged branch into main. Added .nojekyll.
+- Live URL (once Pages is on): https://tinthq101.github.io/To-do/
+- Next: owner makes repo public + turns on Pages, adds to home screen, tests Google sign-in on iPhone and iPad.

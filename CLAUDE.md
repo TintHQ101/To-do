@@ -19,7 +19,7 @@ Liquid-glass iOS style. Chosen theme: **#7 Silver · Moving background · Froste
 In Silver Dark, icons on the silver buttons are dark (`--on-accent`) so they stay readable.
 
 ## How it's built
-- Plain HTML/CSS/JS, no build step. Hosted on GitHub Pages (from `main`, only after the owner says "go live").
+- Plain HTML/CSS/JS, no build step. Hosted on GitHub Pages from `main` (root): https://tinthq101.github.io/To-do/ — repo is public. Push to `main` only when the owner says "go live".
 - Firebase project: `to-do-88c46` (free Spark plan, no billing). Sign-in: Google only.
 - Firebase SDK is loaded from Google's CDN only when `firebase-config.js` has a config.
 - Firestore data: `users/{uid}/tasks/{taskId}` with `title, note, done, doneAt, createdAt, updatedAt` (times in ms). Rules in `firestore.rules`: each user can only touch their own tasks.
