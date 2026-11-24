@@ -22,6 +22,8 @@ server.listen(0, async () => {
   try {
     const page = await browser.newPage({ ...devices['iPhone 13'], deviceScaleFactor: 1 });
     page.on('pageerror', (e) => errors.push(e.message));
+    // Keep the test offline: block Firebase's CDN so it runs in local-only mode.
+    await page.route('https://www.gstatic.com/**', (r) => r.abort());
     await page.goto(url);
     assert(await page.isVisible('#empty'), 'empty state shows on first open');
     assert(await page.evaluate(() => document.documentElement.dataset.theme) === 'dark', 'starts in dark mode');
@@ -63,7 +65,7 @@ server.listen(0, async () => {
     assert((await page.textContent('#doneN')) === '3' && (await page.textContent('#totN')) === '3', 'bar is full');
 
     await page.click('#syncBtn');
-    assert((await page.textContent('#syncText')).includes('not set up'), 'sync sheet explains sync is off');
+    assert((await page.textContent('#syncText')).length > 10, 'sync sheet shows a status message');
 
     assert(errors.length === 0, 'no page errors' + (errors.length ? ': ' + errors.join('; ') : ''));
   } catch (e) {

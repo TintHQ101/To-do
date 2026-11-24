@@ -15,3 +15,10 @@
 - Preview (device-only, no sync): https://claude.ai/artifact/CZ9owkX6o8iEceXjq1jf8V
 - Unfinished: Firebase project not created yet, so sync is off (`firebase-config.js` is null). Not live.
 - Next: user creates the Firebase project and pastes the config. Then wire it up, enable GitHub Pages on "go live", add tinthq101.github.io to Firebase authorized domains, and test Google sign-in from the home-screen app on iPhone (popup sign-in in home-screen apps is the main risk; fallback is Firebase Hosting).
+
+## 2026-11-24 (evening)
+- Firebase project created: `to-do-88c46`. Google sign-in enabled, Firestore created (nam5, production mode), rules pasted (user to confirm Publish went through). Analytics unlinked.
+- Web app registered; config added to `firebase-config.js`.
+- Smoke test now blocks Google's CDN so it runs offline. All checks pass.
+- Could not test real sign-in from the dev container (its network blocks gstatic.com). Must test on the iPhone.
+- Next: add `tinthq101.github.io` to Firebase authorized domains, then on "go live": merge to main, turn on GitHub Pages, test sign-in on iPhone + iPad.
