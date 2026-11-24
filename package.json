@@ -1,0 +1,9 @@
+{
+  "name": "to-do",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/logic.test.js",
+    "check": "node --check app.js && node --check logic.js && node --check store.js && node --check sw.js && node tests/smoke.cjs"
+  }
+}

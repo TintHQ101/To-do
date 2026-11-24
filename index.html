@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>To-Do</title>
+  <meta name="theme-color" content="#0b0c0e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="To-Do">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Apply saved theme before first paint (default: dark).
+    try { const t = localStorage.getItem('todo-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+  </div>
+
+  <main class="app">
+    <header class="top">
+      <div>
+        <p class="date" id="date"></p>
+        <h1>To-Do</h1>
+      </div>
+      <div class="top-btns">
+        <button class="glass icon-btn" id="themeBtn" type="button" aria-label="Switch to light mode">
+          <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+        </button>
+        <button class="glass icon-btn" id="syncBtn" type="button" aria-label="Sync">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18.5h10.5a4 4 0 0 0 .4-8 6 6 0 0 0-11.6-1.6A4.8 4.8 0 0 0 7 18.5z"/></svg>
+          <span class="dot" id="syncDot" hidden></span>
+        </button>
+      </div>
+    </header>
+
+    <section class="glass progress" aria-label="Today's progress">
+      <div class="prog-row">
+        <span class="big"><b id="doneN">0</b> of <span id="totN">0</span> done</span>
+        <span class="left" id="leftN"></span>
+      </div>
+      <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Done today" id="track"><div class="fill" id="fill"></div></div>
+    </section>
+
+    <div class="glass empty" id="clear" hidden>
+      <h2>You're clear.</h2>
+      <p>Every task done. Go do something fun.</p>
+    </div>
+    <div class="glass empty" id="empty" hidden>
+      <h2>Nothing here yet.</h2>
+      <p>Type or tap the mic on your keyboard to add your first task.</p>
+    </div>
+
+    <ul class="list" id="list"></ul>
+
+    <button class="glass done-toggle" id="doneToggle" type="button" aria-expanded="false" hidden>
+      <span id="doneLabel">Done today</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <ul class="list" id="doneList" hidden></ul>
+  </main>
+
+  <form class="glass addbar" id="addForm" autocomplete="off">
+    <input id="addInput" type="text" placeholder="Add a task…" enterkeyhint="done" aria-label="New task" autocapitalize="sentences">
+    <button class="add-btn" type="submit" aria-label="Add task">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg>
+    </button>
+  </form>
+
+  <div class="glass toast" id="toast" hidden role="status"><span id="toastMsg"></span><button id="undoBtn" type="button">Undo</button></div>
+
+  <div class="scrim" id="scrim" hidden></div>
+
+  <section class="glass sheet" id="editSheet" hidden aria-label="Edit task">
+    <div class="sheet-head"><h2>Edit task</h2>
+      <button class="x-btn" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="field"><label for="editTitle">Task</label><input id="editTitle" type="text" autocapitalize="sentences"></div>
+    <div class="field"><label for="editNote">Note (optional)</label><textarea id="editNote" rows="3" placeholder="Extra detail…" autocapitalize="sentences"></textarea></div>
+    <div class="btn-row">
+      <button class="btn danger" id="editDelete" type="button">Delete</button>
+      <button class="btn primary" id="editSave" type="button">Save</button>
+    </div>
+  </section>
+
+  <section class="glass sheet" id="syncSheet" hidden aria-label="Sync">
+    <div class="sheet-head"><h2>Sync</h2>
+      <button class="x-btn" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <p class="sheet-text" id="syncText"></p>
+    <button class="btn primary" id="signInBtn" type="button" hidden>Sign in with Google</button>
+    <button class="btn" id="signOutBtn" type="button" hidden>Sign out</button>
+  </section>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
