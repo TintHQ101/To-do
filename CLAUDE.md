@@ -12,7 +12,7 @@ A very simple to-do web app for iPhone/iPad, added to the home screen (PWA). Bui
 - Progress bar = done today ÷ (open + done today). Done tasks from earlier days are hidden, so the bar resets each morning. Done tasks older than 7 days are deleted automatically.
 - Everything done: big confetti and a "You're clear." message.
 - Light/dark toggle (sun/moon button). Starts in dark mode and remembers your choice.
-- Sync between iPhone and iPad: Google sign-in (Firebase Auth) + Firestore. Without sign-in, tasks are saved on the device only.
+- Sync between iPhone and iPad: Google sign-in (Firebase Auth) + Firestore. Confirmed working on both devices (home-screen app). Without sign-in, tasks are saved on the device only.
 
 ## Look
 Liquid-glass iOS style. Chosen theme: **#7 Silver · Moving background · Frosted glass**, dark by default.

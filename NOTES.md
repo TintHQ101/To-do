@@ -29,3 +29,9 @@
 - Merged branch into main. Added .nojekyll.
 - Live URL (once Pages is on): https://tinthq101.github.io/To-do/
 - Next: owner makes repo public + turns on Pages, adds to home screen, tests Google sign-in on iPhone and iPad.
+
+## 2026-11-26
+- Pages is live at https://tinthq101.github.io/To-do/ (deploy succeeded).
+- Owner signed in with Google on iPad and iPhone (home-screen app). A test task synced to both devices. Sync confirmed working.
+- Unfinished: nothing blocking. v1 is done.
+- Next: owner uses it for a few days, then we fix whatever annoys them. Keep features few.
